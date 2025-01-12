@@ -91,7 +91,6 @@ write_xlsx(as.data.frame(fit$E), "trans_residuals.xlsx")
 write_xlsx(as.data.frame(fit$Ff), "sec_residuals.xlsx")
 
 
-
 #manually indexed all lvs and scores with gene names and ids
 
 ######post o2PLS analysis
@@ -379,8 +378,8 @@ uniprot_suf_secr <- pttpos_idmap %>%
            grepl("secreted", pttpos_idmap$`Subcellular location [CC]`,
                  ignore.case = TRUE, ))
 
-write_xlsx(uniprot_suf_secr,"surface annotation/uniprot_suf_secr.xlsx")
-
+write_xlsx(uniprot_suf_secr,"analysis after integration/surface annotation/uniprot_suf_secr.xlsx")
+'''
 #FC cut off
 setwd("~/BINF/o2pls/tr-sec/output/analysis after integration/fc1.5")
 ttpos1.5 = ttpossigBH[abs(ttpossigBH$log2FC) > log2(1.5), ]
@@ -399,5 +398,7 @@ write_xlsx(pttpos1.5, "pttpos1.5.xlsx")
 
 pttneg1.5 = pttnegsigBH[abs(pttnegsigBH$log2FC) > log2(1.5), ]
 write_xlsx(pttneg1.5, "pttneg1.5.xlsx")
+''' 
+
 
 
