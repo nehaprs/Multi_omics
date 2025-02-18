@@ -10,7 +10,8 @@ library(readxl)
 library(pracma)
 library(tidyr)
 
-pttpos_idmap <- read_excel("analysis after integration/pttpos_idmap.xlsx")
+setwd("~/BINF/o2pls/tr-sec/output/analysis after integration/surface annotation")
+pttpos_idmap <- read_excel("idmapping_reviewed_true_2025_02_17.xlsx")
 pttpos_idmap = as.data.frame(pttpos_idmap)
 
 pttpos_idmap$`Subcellular location [CC]` <- gsub(
@@ -30,7 +31,7 @@ uniprot_suf_secr <- pttpos_idmap %>%
            grepl("secreted", pttpos_idmap$`Subcellular location [CC]`,
                  ignore.case = TRUE, ))
 
-write_xlsx(uniprot_suf_secr,"surface annotation/uniprot_suf_secr.xlsx")
+write_xlsx(uniprot_suf_secr,"uniprot_suf_secr.xlsx")
 
 #FC cut off
 setwd("~/BINF/o2pls/tr-sec/output/analysis after integration/fc1.5")
