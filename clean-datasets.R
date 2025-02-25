@@ -65,3 +65,30 @@ write_xlsx(FCFDR.subs.tr_sec, "FCFDR.subs.tr_sec.xlsx")
 FCFDR.subs.cp_sec = inner_join(subs.cp_sec2, cp2, by = c("ID", "GeneName"))
 FCFDR.subs.cp_sec = inner_join(FCFDR.subs.cp_sec, sec2, by = c( "ID","GeneName"))
 write_xlsx(FCFDR.subs.cp_sec, "FCFDR.subs.cp_sec.xlsx")
+
+
+#FDRFC of common proteins
+setwd("~/BINF/o2pls/compare datasets/common proteins")
+
+'''
+comm_all3 <- read_excel("~/BINF/o2pls/compare datasets/comm_all3.xlsx")
+FCFDR.comm_all3 = inner_join(comm_all3, rna2, by = "GeneName")
+FCFDR.comm_all3 = inner_join(FCFDR.comm_all3, cp2, by = c( "ID","GeneName"))
+FCFDR.comm_all3 = inner_join(FCFDR.comm_all3, sec2, by = c( "ID","GeneName"))
+write_xlsx(FCFDR.comm_all3, "FCFDR.comm_all3.xlsx")
+'''
+
+xlsx_files = list.files(pattern = "xlsx$")
+
+for(file in xlsx_files){
+  df = read_excel(file)
+  
+  result <- df %>%
+    inner_join(rna2, by = "GeneName") %>%
+    inner_join(cp2, by = c("ID", "GeneName")) %>%
+    inner_join(sec2, by = c("ID", "GeneName"))
+  
+  output_filename = paste0("FCFDR.", tools::file_path_sans_ext(basename(file)), ".xlsx")
+  write_xlsx(result,output_filename )
+  
+}
