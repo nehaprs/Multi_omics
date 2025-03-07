@@ -35,10 +35,10 @@ rm(rna, cp, sec)
 subs.tr_cp <- read_excel("~/BINF/o2pls/for manuscript/tr-cp substrates.xlsx", 
                              sheet = "all 188 membrane proteins")
 
-subs.tr_sec <- read_excel("~/BINF/o2pls/tr-sec/output/analysis after integration/surface annotation/uniprot_suf_secr.xlsx", 
+subs.tr_sec <- read_excel("~/BINF/o2pls/tr-sec/output/analysis after integration/surface annotation/subs_tr-sec.xlsx", 
                                    sheet = "Sheet2")
 
-subs.cp_sec <- read_excel("~/BINF/o2pls/cp-sec/output/analysis after integration/surface annotation/uniprot_suf_secr.xlsx")
+subs.cp_sec <- read_excel("~/BINF/o2pls/cp-sec/output/analysis after integration/surface annotation/subs_cp-sec.xlsx")
 
 #clean substrate datasets
 subs.tr_cp2 = subs.tr_cp[,-c(2,3,5)]
@@ -79,6 +79,7 @@ write_xlsx(FCFDR.comm_all3, "FCFDR.comm_all3.xlsx")
 '''
 
 xlsx_files = list.files(pattern = "xlsx$")
+
 
 for(file in xlsx_files){
   df = read_excel(file)
