@@ -10,7 +10,7 @@ Includes:
 4. Identification of surface proteins
 5. Identification and prioritization of substrates
 
-   File names files are indicative
+   File names are indicative
 
 
 
