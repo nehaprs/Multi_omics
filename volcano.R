@@ -18,8 +18,8 @@ res2 <- res %>%
   mutate(
     negLogFDR = -log10(FDR),
     group = case_when(
-      log2FC >  0 & FDR < fdr.cut1 ~ "Upregulated",
-      log2FC < 0 & FDR < fdr.cut1 ~ "Downregulated",
+      log2FC >  fc.cut  & FDR < fdr.cut1 ~ "Upregulated",
+      log2FC < -fc.cut  & FDR < fdr.cut1 ~ "Downregulated",
       TRUE                                ~ "Not significant"
     ),
     group = factor(group, levels = c("Downregulated","Not significant","Upregulated"))
@@ -29,7 +29,7 @@ res2 <- res %>%
 y1 <- -log10(fdr.cut1)
 y2 <- -log10(fdr.cut2)
 
-p = ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
+ ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
   
   # Points
   geom_point(alpha = 0.8, size = 2) +
@@ -44,7 +44,7 @@ p = ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
   
   # Horizontal FDR cutoffs
   geom_hline(yintercept = y1, linetype = "dashed") +
-  geom_hline(yintercept = y2, linetype = "dashed") +
+  #geom_hline(yintercept = y2, linetype = "dashed") +
   
   #label axes
   labs(
@@ -56,8 +56,8 @@ p = ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
   # Label the horizontal lines
   annotate("text", x = -3, y = y1 + 0.1,
            label = "FDR = 0.05", hjust = 0, vjust = 0, size = 3) +
-  annotate("text", x = -3, y = y2 + 0.1,
-           label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3) +
+  #annotate("text", x = -3, y = y2 + 0.1,
+   #        label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3) +
   
   
   # Label the vertical lines
@@ -83,7 +83,7 @@ p = ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
 
 res <- read_excel("mrnares.xlsx")
 # cut‐offs
-fc.cut   <- log2(1.5)
+fc.cut   <- log2(1.2)
 fdr.cut1 <- 0.05
 fdr.cut2 <- 0.01
 
@@ -92,8 +92,8 @@ res2 <- res %>%
   mutate(
     negLogFDR = -log10(FDR),
     group = case_when(
-      log2FC >  0 & FDR < fdr.cut1 ~ "Upregulated",
-      log2FC < 0 & FDR < fdr.cut1 ~ "Downregulated",
+      log2FC >  fc.cut & FDR < fdr.cut1 ~ "Upregulated",
+      log2FC < -fc.cut & FDR < fdr.cut1 ~ "Downregulated",
       TRUE                                ~ "Not significant"
     ),
     group = factor(group, levels = c("Downregulated","Not significant","Upregulated"))
@@ -136,9 +136,9 @@ y2 <- -log10(fdr.cut2)
   
   # Label the vertical lines
   annotate("text", x = -fc.cut -1, y = 0 - 1,
-           label = "FC = -1.5", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = -1.2", hjust = 0, vjust = 0, size = 3) +
   annotate("text", x = fc.cut + 0.1, y = 0 - 1,
-           label = "FC = 1.5", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = 1.2", hjust = 0, vjust = 0, size = 3) +
   
   #break on y-axis
     scale_y_break(c(50,130)) +
