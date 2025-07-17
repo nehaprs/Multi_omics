@@ -48,3 +48,4 @@ results$PValue <- lrt$table$PValue
 results$FDR <- p.adjust(results$PValue, method = "BH") 
 mrna = cbind(mrna, results)
 writexl::write_xlsx(mrna,"mrna_glmqlfit.xlsx")
+

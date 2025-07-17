@@ -81,9 +81,11 @@ y2 <- -log10(fdr.cut2)
 
 #volcano plot for rnaseq
 
-res <- read_excel("mrnares.xlsx")
+#res <- read_excel("mrnares.xlsx")
+mrna_glmqlfit <- read_excel("~/BINF/o2pls/for manuscript/revision/mrna_glmqlfit.xlsx")
+res = mrna_glmqlfit
 # cut‐offs
-fc.cut   <- log2(1.2)
+fc.cut   <- log2(1.5)
 fdr.cut1 <- 0.05
 fdr.cut2 <- 0.01
 
@@ -136,17 +138,17 @@ y2 <- -log10(fdr.cut2)
   
   # Label the vertical lines
   annotate("text", x = -fc.cut -1, y = 0 - 1,
-           label = "FC = -1.2", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = -1.5", hjust = 0, vjust = 0, size = 3) +
   annotate("text", x = fc.cut + 0.1, y = 0 - 1,
-           label = "FC = 1.2", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = 1.5", hjust = 0, vjust = 0, size = 3) +
   
   #break on y-axis
-    scale_y_break(c(50,130)) +
+    #scale_y_break(c(50,130)) +
   
   # Highlight & label ADAM9, nudged upward
   geom_text(
-    data = filter(res2, gene == "ADAM9", negLogFDR > 130),
+    data = filter(res2, gene == "ADAM9"),
     aes(label = gene),
-    nudge_y = 3, direction = "y", segment.size = 0.2,
+    nudge_y = 0.5, direction = "y", segment.size = 0.2,
     color = "black"
   ) 
