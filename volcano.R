@@ -49,23 +49,23 @@ y2 <- -log10(fdr.cut2)
   
   #label axes
   labs(
-    x = expression(log[2](KD/CT)),
+    x = expression(log[2](FC)),
     y = expression(-log[10](FDR)),
     color = NULL
   )+
 
   # Label the horizontal lines
   annotate("text", x = -3, y = y1 + 0.1,
-           label = "FDR = 0.05", hjust = 0, vjust = 0, size = 3) +
+           label = "FDR = 0.05", hjust = 0, vjust = 0, size = 3.5) +
   annotate("text", x = -3, y = y2 + 0.1,
-          label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3) +
+          label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3.5) +
   
   
   # Label the vertical lines
   annotate("text", x = -fc.cut - 0.1, y = 0 +7, angle = 90,
-           label = "FC = -1.2", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = -1.2", hjust = 0, vjust = 0, size = 3.5) +
   annotate("text", x = fc.cut + 0.25, y = 0 +7, angle = 90,
-           label = "FC = 1.2", hjust = 0, vjust = 0, size = 3) +
+           label = "FC = 1.2", hjust = 0, vjust = 0, size = 3.5) +
   
   # Highlight & label ADAM9, nudged upward
   geom_text_repel(
@@ -86,11 +86,13 @@ y2 <- -log10(fdr.cut2)
 #mrna_glmqlfit <- read_excel("~/BINF/o2pls/for manuscript/revision/mrna_glmqlfit.xlsx")
 #res = mrna_glmqlfit
 res <- read_excel("~/BINF/BINF_old/multi-omics/ADAM9 KD HCT116 proteomics/Protein and mRNA/DEGs and DEPs/DEGs/mRNA All Results.xlsx")
-# cut‐offs
+
+ # cut‐offs
 fc.cut   <- log2(1.5)
 fdr.cut1 <- 0.05
 fdr.cut2 <- 0.01
-
+res$log2FC = res$logFC 
+res$gene = res$GeneName
 # Prep data
 res2 <- res %>%
   mutate(
@@ -129,26 +131,33 @@ ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
   
   #label axes
   labs(
-    x = expression(log[2](KD/CT)),
+    x = expression(log[2](FC)),
     y = expression(-log[10](FDR)),
     color = NULL
   )+
   
   # Label the horizontal lines
-  annotate("text", x = -3, y = y1 + 1,
-           label = "FDR = 0.05", hjust = 0, vjust = 0, size = 3) +
-  annotate("text", x = -3, y = y2 - 3,
-         label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3) +
+  annotate("text", x = 1.5, y = y1 + 2,
+           label = "FDR = 0.01", hjust = 0, vjust = 0, size = 3.5) +
+  annotate("text", x = 1.5, y = y2-10,
+         label = "FDR = 0.05", hjust = 0, vjust = 0.8, size = 3.5) +
   
   
   # Label the vertical lines
   annotate("text", x = -fc.cut +0.2, y = 0 + 20, angle = 90,
-           label = "|FC| = 1.5", hjust = 0, vjust = 0, size = 2.5) +
+           label = "FC = -1.5", hjust = 0, vjust = 0, size = 4) +
   annotate("text", x = fc.cut - 0.1, y = 0 + 20,angle = 90,
-           label = "|FC| = 1.5", hjust = 0, vjust = 0, size = 2.5) +
+           label = "FC = 1.5", hjust = 0, vjust = 0, size = 4) +
   
   #break on y-axis
-    #scale_y_break(c(50,130)) +
+    #scale_y_break(c(50,130))  +
+   
+  scale_y_break(c(40,140))+
+  scale_y_continuous(
+    limits = c(0, 150),
+    breaks = seq(0, 150, 10),
+    oob = scales::oob_squish
+  )
   
   # Highlight & label ADAM9, nudged upward
   geom_text(
@@ -156,11 +165,4 @@ ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
     aes(label = gene),
     nudge_y = -1, direction = "y", segment.size = 0.2,
     color = "black"
-  ) +
-   
-  scale_y_break(c(40,140))+
-  scale_y_continuous(
-    limits = c(0, 150),
-    breaks = seq(0, 150, 10),
-    oob = scales::oob_squish
-  ) 
+  )
