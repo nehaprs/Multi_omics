@@ -166,3 +166,8 @@ ggplot(res2, aes(x = log2FC, y = negLogFDR, color = group)) +
     nudge_y = -1, direction = "y", segment.size = 0.2,
     color = "black"
   )
+  
+
+  
+
+  
