@@ -10,6 +10,7 @@ library(dplyr)
 library(edgeR)
 library(readxl)
 
+
 mrna <- read_excel("~/BINF/BINF_old/multi-omics/ADAM9 KD HCT116 proteomics/Protein and mRNA/DEGs and DEPs/DEGs/mRNA All Results.xlsx")
 counts = mrna[c(2:13)]
 
