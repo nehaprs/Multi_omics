@@ -73,7 +73,7 @@ crossval_o2m_adjR2(rnaTS,cpTS,1:5,0:5,0:5,nr_folds = 5)
 "
 
 
-crossval_o2m(rnaTS,cpTS,1:3,0:2,0:1,5)
+crossval_o2m(rnaTS,cpTS,2:4,0:2,0:1,5)
 "
 *******
 Minimal 5-CV error is at ax=1 ay=1 a=2 
@@ -89,6 +89,7 @@ summary(fit)
 write_file(fit, "o2plsfit")
 head(fit)
 
+#extract loadings
 loadings = loadings(fit)
 loadings_xjoint = loadings(fit,"Xjoint")
 write.table(loadings_xjoint, "loading_values_TransJoint")
@@ -281,7 +282,7 @@ cp = cp2
 
 covcorall <- read_excel("analysis after integration/covcorxy_cleaned.xlsx")
 
-#i.e., use fisher 2 sided test to find significant corr_y_a9
+# use fisher 2 sided test to find significant corr_y_a9
 
 
 #find TTs, the proteins with a significant positive correlation between x and y
